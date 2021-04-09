@@ -13,5 +13,3 @@ del data['Evaporation']
 del data['Sunshine']
 compression_opts = dict(method='zip', archive_name='weather_data.csv')
 data.to_csv('out.zip', index=False, compression=compression_opts)
-
-print(data)
