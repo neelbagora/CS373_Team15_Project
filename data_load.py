@@ -2,8 +2,8 @@ import pandas as pd
 
 # For Documentation Purposes
 '''
-    Cleans raw data by removing unnecessary features and
-    writing new data frame into 'weather_data.csv' and compressing
+    Cleans raw data by removing unnecessary features,
+    writing new data frame into 'weather_data.csv', and compressing
     into 'out.zip'
 '''
 data = pd.read_csv("weatherAUSData.csv")
