@@ -1,1 +1,1 @@
-# CS373_Team15_Project
+# CS373 Project Team 15
