@@ -19,7 +19,6 @@ winds_label.append(data['WindDir9am'])
 winds_label.append(data['WindDir3pm'])
 winds_label = list(set(winds_label))
 winds_label = [x for x in winds_label if str(x) != 'nan']
-print(winds_label)
 
 le_fit = le.fit(winds_label)
 le_transform = le.transform(winds_label)
@@ -35,6 +34,7 @@ data = data.replace({'WindDir9am': winds_dict})
 data = data.replace({'WindDir3pm': winds_dict})
 data = data.replace({"RainToday": yes_no_dict})
 data = data.replace({"RainTomorrow": yes_no_dict})
+data = data.fillna(0)
 
 compression_opts = dict(method='zip', archive_name='weather_data.csv')
 data.to_csv('out.zip', index=False, compression=compression_opts)
