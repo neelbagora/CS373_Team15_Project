@@ -25,7 +25,6 @@ validation_data_output = outputs.iloc[testing_indices[600 : 800]]
 testing_data = raw_data.iloc[testing_indices[800 : 1000]]
 # print(testing_data)
 
-'''
 clf = DecisionTreeClassifier(min_impurity_decrease=0.5)
 fit_clf = clf.fit(training_data, training_data_output)
-print(fit_clf.predict(validation_data))'''
+print(fit_clf.predict(validation_data))
