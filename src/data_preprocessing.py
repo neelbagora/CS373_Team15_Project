@@ -44,6 +44,9 @@ data = data.replace({'WindDir3pm': winds_dict})
 data = data.replace({"RainToday": yes_no_dict})
 data = data.replace({"RainTomorrow": yes_no_dict})
 
+data['RainToday'].fillna(0, inplace=True)
+data['RainTomorrow'].fillna(0, inplace=True)
+
 # remove NaN values
 data.fillna(data.mean(), inplace=True)
 
