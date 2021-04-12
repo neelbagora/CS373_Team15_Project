@@ -15,7 +15,7 @@ from sklearn.metrics import accuracy_score
 #           and analysis of algorithm)
 # Output: numpy vector y-hat, of size 200
 #         float accuracy_score of the validation subset
-def decisiontreeclassifier(raw_data, impurity_decrease, np_seed):
+def decisiontreeclassifier(raw_data, impurity_decrease, np_seed=None):
     if np_seed:
         np.random.seed(np_seed)
 
@@ -40,4 +40,5 @@ def decisiontreeclassifier(raw_data, impurity_decrease, np_seed):
     clf = DecisionTreeClassifier(min_impurity_decrease=impurity_decrease)
     clf = clf.fit(training_data, training_data_output)
     clf_testing_predict = clf.predict(testing_data)
-    return (clf_testing_predict, accuracy_score(clf.predict(validation_data), validation_data_output))
+    testing_output = np.array(outputs.iloc[testing_indices[800:]])
+    return (clf_testing_predict, testing_output, accuracy_score(clf.predict(validation_data), validation_data_output))
