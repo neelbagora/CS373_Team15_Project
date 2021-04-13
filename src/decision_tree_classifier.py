@@ -4,16 +4,16 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics import accuracy_score
 
-# Input: Pandas Dataframe X
+# Input:  Pandas Dataframe X
 #           dataframe containing the data to be used to form the decision
 #           tree model
-#        Pandas Dataframe y
+#         Pandas Dataframe y
 #           dataframe containing the outputs corresponding to the input_data
 #           provided.
-#        float impurity_decrease
+#         float impurity_decrease
 #           float specifying the minimum impurity decrease required to yield
 #           a split in the decision tree
-#        int np_seed
+#         int np_seed
 #           integer specifying if numpy random seed is necessary (for testing
 #           and analysis of algorithm)
 # Output: float accuracy_score of the validation subset
