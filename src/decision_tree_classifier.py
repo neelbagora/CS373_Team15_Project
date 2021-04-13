@@ -16,8 +16,9 @@ from sklearn.metrics import accuracy_score
 #        int np_seed
 #           integer specifying if numpy random seed is necessary (for testing
 #           and analysis of algorithm)
-# Output: numpy vector y-hat, of size 200
-#         float accuracy_score of the validation subset
+# Output: float accuracy_score of the validation subset
+#         numpy vector y-hat (using testing data), of size 200
+#         numpy vector y (using testing data), of size 200
 def decisiontreeclassifier(input_data, outputs, impurity_decrease, np_seed=None):
     if np_seed:
         np.random.seed(np_seed)
@@ -41,4 +42,4 @@ def decisiontreeclassifier(input_data, outputs, impurity_decrease, np_seed=None)
     clf = clf.fit(training_data, training_data_output)
     clf_testing_predict = clf.predict(testing_data)
     testing_output = np.array(outputs.iloc[testing_indices[800:]])
-    return (clf_testing_predict, testing_output, accuracy_score(clf.predict(validation_data), validation_data_output))
+    return (accuracy_score(clf.predict(validation_data), validation_data_output), clf_testing_predict, testing_output)
