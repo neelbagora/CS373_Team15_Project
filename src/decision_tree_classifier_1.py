@@ -10,5 +10,10 @@ raw_data = pd.read_csv("../data/weather_data.csv")
 outputs = raw_data['RainTomorrow']
 del raw_data['RainTomorrow']
 output = decisiontreeclassifier(raw_data, outputs, 0.01427854)
-print(output[2])
-print(accuracy_score(output[0], output[1]))
+
+validation_accuracy_score = output[0]
+y_hat_testing = output[1]
+y_testing = output[2]
+
+print("Validation Accuracy Score ", validation_accuracy_score)
+print("Testing Accuracy Score ", accuracy_score(y_hat_testing, y_testing))

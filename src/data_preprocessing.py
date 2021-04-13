@@ -44,10 +44,15 @@ data = data.replace({'WindDir3pm': winds_dict})
 data = data.replace({"RainToday": yes_no_dict})
 data = data.replace({"RainTomorrow": yes_no_dict})
 
+# fill RainToday and RainTomorrow NaN values with 0
 data['RainToday'].fillna(0, inplace=True)
 data['RainTomorrow'].fillna(0, inplace=True)
 
-# remove NaN values
+# convert RainToday and RainTomorrow to integer columns
+data['RainToday'] = data['RainToday'].astype(int)
+data['RainTomorrow'] = data['RainTomorrow'].astype(int)
+
+# fill remaining column NaN values with mean of the respective column
 data.fillna(data.mean(), inplace=True)
 
 # compress data into a zip file to be used for analysis
