@@ -7,6 +7,8 @@ from sklearn.metrics import accuracy_score
 
 # n = 1000 (fixed)
 raw_data = pd.read_csv("../data/weather_data.csv")
-output = decisiontreeclassifier(raw_data, 0.01427854)
+outputs = raw_data['RainTomorrow']
+del raw_data['RainTomorrow']
+output = decisiontreeclassifier(raw_data, outputs, 0.01427854)
 print(output[2])
 print(accuracy_score(output[0], output[1]))
