@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 df = pd.read_csv("/Users/brendanlee/Desktop/CS373_Team15_Project/data/weather_data.csv", sep=',')
+# df = pd.read_csv('')
 
 # Convert values of columns to Integers
 df['RainToday'] = df['RainToday'].astype(int)
