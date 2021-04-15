@@ -9,7 +9,7 @@ import bayes_functions
 df = pd.read_csv('../data/weather_data.csv')
 
 # Convert values of columns to Integers
-df['RainToday'] = df['RainToday'].astype(int)
+df['RainToday'] = df['RainToday']
 df['RainTomorrow'] = df['RainTomorrow'].astype(int)
 df['WindGustDir'] = df['WindGustDir'].astype(int)
 
@@ -25,17 +25,18 @@ train_outputs = []
 alphas = np.arange(0.0, 1.01, 0.01)
 alphas = [0.01, 0.05, 0.1, 0.5, 1.0]
 folds = 3
+num_test = 100
 
 # Testing for alpha
 for alpha in alphas:
   test_avg = 0
   train_avg = 0
-  for i in range(100):
+  for i in range(num_test):
     y_pred, test_score, train_score = bayes_functions.run(X, y, alph=alpha)
     test_avg += test_score
     train_avg += train_score
-  test_avg = test_avg / 100
-  train_avg = train_avg / 100
+  test_avg = test_avg / num_test
+  train_avg = train_avg / num_test
   testing_outputs.append(test_avg)
   train_outputs.append(train_avg)
 
