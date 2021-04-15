@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder
-from decision_tree_classifier import decisiontreeclassifier
+import decision_tree_classifier
 from sklearn.metrics import accuracy_score
 import time
 import sys
@@ -14,15 +14,18 @@ X = pd.read_csv("../data/weather_data.csv")
 y = X['RainTomorrow']
 del X['RainTomorrow']
 
-# number of tests to run per hyperparameter
-n_tests = int(sys.argv[1])
-
 # test_num indicates the range of hyperparameters being tested
 # Range of Hyperparameters = (0.1 * test_num - 0.1, test_num * 0.1)
 # ex: n_tests = 5, range(0.4, 0.5 (exlucisve))
-test_num = int(sys.argv[2])
+test_num = int(input("Enter test number: "))
 
-inputs = np.arange(((test_num * 0.1) - 0.1), test_num * 0.1, 0.001).tolist()
+# number of tests to run per hyperparameter
+n_tests = int(input("Enter number of tests per Hyperparameter: "))
+step = float(input("Enter step value: "))
+
+print(f'Hyperparameter Range being Run: ({(test_num * 0.1) - 0.1}, {test_num * 0.1}), step={step}.')
+
+inputs = np.arange(((test_num * 0.1) - 0.1), test_num * 0.1, step).tolist()
 validation_outputs = []
 testing_outputs = []
 
@@ -34,13 +37,9 @@ for i in range(len(inputs)):
     # run n_tests and calculate average accuracy score obtained from
     # specified hyperparameter
     for j in range(n_tests):
-        output = decisiontreeclassifier(X, y, inputs[i])
-
-        validation_accuracy_score += output[0]
-        y_hat_testing = output[1]
-        y_testing = output[2]
-
+        validation_accuracy_score, y_hat_testing, y_testing = decision_tree_classifier.run(X, y, inputs[i])
         testing_accuracy_score += accuracy_score(y_hat_testing, y_testing)
+
     validation_outputs.append(validation_accuracy_score / n_tests)
     testing_outputs.append(testing_accuracy_score / n_tests)
 
