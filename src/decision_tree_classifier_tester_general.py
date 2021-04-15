@@ -14,8 +14,12 @@ X = pd.read_csv("../data/weather_data.csv")
 y = X['RainTomorrow']
 del X['RainTomorrow']
 
+# number of tests to run per hyperparameter
 n_tests = int(sys.argv[1])
 
+# test_num indicates the range of hyperparameters being tested
+# Range of Hyperparameters = (0.1 * test_num - 0.1, test_num * 0.1)
+# ex: n_tests = 5, range(0.4, 0.5 (exlucisve))
 test_num = int(sys.argv[2])
 
 inputs = np.arange(((test_num * 0.1) - 0.1), test_num * 0.1, 0.001).tolist()
