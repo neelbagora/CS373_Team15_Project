@@ -16,7 +16,7 @@ del X['RainTomorrow']
 n_tests = 500
 
 test_num = 2
-inputs = np.arange(test_num - 1, test_num, 0.01).tolist()
+inputs = np.arange(((test_num * 0.1) - 0.1), test_num * 0.1, 0.001).tolist()
 validation_outputs = []
 testing_outputs = []
 
@@ -43,5 +43,5 @@ df = pd.DataFrame(list(zip(inputs, validation_outputs, testing_outputs)))
 print(df)
 print(f'Runtime {time.perf_counter() - start} seconds')
 
-compression_opts = dict(method='zip', archive_name=f'output_data_{test_num}.csv')
-df.to_csv(f'output_data_{test_num}.zip', index=False, compression=compression_opts)
+compression_opts = dict(method='zip', archive_name=f'dtc_output_data_{test_num}.csv')
+df.to_csv(f'../output/dtc_output_data_{test_num}.zip', index=False, compression=compression_opts)

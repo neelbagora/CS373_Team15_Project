@@ -15,7 +15,7 @@ del X['RainTomorrow']
 
 n_tests = 500
 
-test_num = 3
+test_num = 4
 inputs = np.arange(((test_num * 0.1) - 0.1), test_num * 0.1, 0.001).tolist()
 validation_outputs = []
 testing_outputs = []

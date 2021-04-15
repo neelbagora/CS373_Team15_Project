@@ -5,6 +5,7 @@ from sklearn.preprocessing import LabelEncoder
 from decision_tree_classifier import decisiontreeclassifier
 from sklearn.metrics import accuracy_score
 import time
+import sys
 
 start = time.perf_counter()
 
@@ -13,9 +14,10 @@ X = pd.read_csv("../data/weather_data.csv")
 y = X['RainTomorrow']
 del X['RainTomorrow']
 
-n_tests = 500
+n_tests = int(sys.argv[1])
 
-test_num = 3
+test_num = int(sys.argv[2])
+
 inputs = np.arange(((test_num * 0.1) - 0.1), test_num * 0.1, 0.001).tolist()
 validation_outputs = []
 testing_outputs = []

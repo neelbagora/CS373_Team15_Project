@@ -57,4 +57,4 @@ data.fillna(data.mean(), inplace=True)
 
 # compress data into a zip file to be used for analysis
 compression_opts = dict(method='zip', archive_name='weather_data.csv')
-data.to_csv('weather_data.zip', index=False, compression=compression_opts)
+data.to_csv('../data/weather_data.zip', index=False, compression=compression_opts)
