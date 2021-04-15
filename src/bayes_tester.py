@@ -4,7 +4,27 @@ import matplotlib.pyplot as plt
 from sklearn.naive_bayes import BernoulliNB
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-import bayes_functions
+import os
+
+def run(X, y , alph, np_seed=None):
+  if np_seed:
+    np.random.seed(np_seed)
+
+  # Randomly split up the dataset for training, validation and testing
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.6, train_size=0.2)
+  y_test = y_test.to_numpy()
+
+  # Training
+  clf = BernoulliNB(alpha=alph)
+  clf.fit(X_train, y_train)
+  y_pred = clf.predict(X_test)
+
+  # Accuracy Output
+  #print('Test Accuracy : %.4f' % clf.score(X_test, y_test))
+  #print('Training Accuracy : %.3f' % clf.score(X_train, y_train))
+
+
+  return y_pred, clf.score(X_test, y_test), clf.score(X_train, y_train)
 
 df = pd.read_csv('../data/weather_data.csv')
 
@@ -32,7 +52,7 @@ for alpha in alphas:
   test_avg = 0
   train_avg = 0
   for i in range(num_test):
-    y_pred, test_score, train_score = bayes_functions.run(X, y, alph=alpha)
+    y_pred, test_score, train_score = run(X, y, alph=alpha)
     test_avg += test_score
     train_avg += train_score
   test_avg = test_avg / num_test
