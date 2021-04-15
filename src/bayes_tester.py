@@ -11,18 +11,21 @@ def run(X, y , alph, np_seed=None):
     np.random.seed(np_seed)
 
   # Randomly split up the dataset for training, validation and testing
-  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.6, train_size=0.2)
-  y_test = y_test.to_numpy()
+  # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.6, train_size=0.2)
+  testing_indices = list(np.random.choice(len(X), len(X), replace=False))
+
+  X_train = X.iloc[testing_indices[0:600]]
+  y_train = y.iloc[testing_indices[0:600]]
+
+  X_test = X.iloc[testing_indices[600:1000]]
+  y_test = y.iloc[testing_indices[600:1000]]
+
+  #y_test = y_test.to_numpy()
 
   # Training
   clf = BernoulliNB(alpha=alph)
   clf.fit(X_train, y_train)
   y_pred = clf.predict(X_test)
-
-  # Accuracy Output
-  #print('Test Accuracy : %.4f' % clf.score(X_test, y_test))
-  #print('Training Accuracy : %.3f' % clf.score(X_train, y_train))
-
 
   return y_pred, clf.score(X_test, y_test), clf.score(X_train, y_train)
 
@@ -30,8 +33,8 @@ df = pd.read_csv('../data/weather_data.csv')
 
 # Convert values of columns to Integers
 df['RainToday'] = df['RainToday']
-df['RainTomorrow'] = df['RainTomorrow'].astype(int)
-df['WindGustDir'] = df['WindGustDir'].astype(int)
+df['RainTomorrow'] = df['RainTomorrow']
+df['WindGustDir'] = df['WindGustDir']
 
 # Split up X and y
 y = df['RainTomorrow']
