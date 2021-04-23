@@ -7,7 +7,10 @@ from sklearn.preprocessing import LabelEncoder
     variables to numerical values, and writes new data frame into
     'weather_data.csv', and compressing into 'weather_data.zip'
 '''
-data = pd.read_csv("../data/weatherAUSData.csv")
+data = pd.read_csv("../data/weatherAUS.csv")
+
+data = data[data['Location'] == 'Uluru']
+data = data.iloc[len(data) - 1000 :]
 
 # drop unnecessary data columns
 del data['Date']
