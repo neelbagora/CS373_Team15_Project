@@ -2,6 +2,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder
 import pandas as pd
 import numpy as np
+import my_get_accuracy
 
 # Input:  Pandas Dataframe X
 #           dataframe containing the data to be used to form the decision
@@ -44,11 +45,6 @@ def run(X, y, impurity_decrease, np_seed=None):
     clf_testing_predict = clf.predict(X_testing)
 
     clf_validation_predict = clf.predict(X_validation)
-
-    validation_accuracy_score = 0
-    for i in range(len(clf_validation_predict)):
-        if (clf_validation_predict[i] == y_validation[i]):
-            validation_accuracy_score = validation_accuracy_score + 1
-    validation_accuracy_score = validation_accuracy_score / len(clf_validation_predict)
+    validation_accuracy_score = my_get_accuracy.run(clf_validation_predict, y_validation, True)
 
     return (validation_accuracy_score, clf_testing_predict, y_testing)

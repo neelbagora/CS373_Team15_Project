@@ -5,6 +5,7 @@ from sklearn.preprocessing import LabelEncoder
 import decision_tree_classifier
 import time
 import sys
+import my_get_accuracy
 
 start = time.perf_counter()
 
@@ -13,18 +14,13 @@ X = pd.read_csv("../data/weather_data.csv")
 y = X['RainTomorrow']
 del X['RainTomorrow']
 
-# test_num indicates the range of hyperparameters being tested
-# Range of Hyperparameters = (0.1 * test_num - 0.1, test_num * 0.1)
-# ex: n_tests = 5, range(0.4, 0.5 (exlucisve))
-test_num = int(input("Enter test number: "))
-
 # number of tests to run per hyperparameter
 n_tests = int(input("Enter number of tests per Hyperparameter: "))
 step = float(input("Enter step value: "))
 
-print(f'Hyperparameter Range being Run: ({(test_num * 0.1) - 0.1}, {test_num * 0.1}), step={step}.')
+print(f'Hyperparameter Range being Run: ({0}, {2}), step={step}.')
 
-inputs = np.arange(((test_num * 0.1) - 0.1), test_num * 0.1, step).tolist()
+inputs = np.arange(0, 2, step).tolist()
 validation_outputs = []
 testing_outputs = []
 
@@ -36,13 +32,10 @@ for i in range(len(inputs)):
     # run n_tests and calculate average accuracy score obtained from
     # specified hyperparameter
     for j in range(n_tests):
-        validation_accuracy_score, y_hat_testing, y_testing = decision_tree_classifier.run(X, y, inputs[i])
+        validation_score, y_hat_testing, y_testing = decision_tree_classifier.run(X, y, inputs[i])
+        validation_accuracy_score = validation_accuracy_score + validation_score
 
-        accuracy_score = 0
-        for k in range(len(y_hat_testing)):
-            if (y_hat_testing[k] == y_testing[k]):
-                accuracy_score = accuracy_score + 1
-        accuracy_score = accuracy_score / len(y_hat_testing)
+        accuracy_score = my_get_accuracy.run(y_hat_testing, y_testing, True)
         testing_accuracy_score += accuracy_score
 
     validation_outputs.append(validation_accuracy_score / n_tests)
@@ -50,8 +43,9 @@ for i in range(len(inputs)):
 
 # form pandas dataframe from data
 df = pd.DataFrame(list(zip(inputs, validation_outputs, testing_outputs)))
+df.columns = ['Min Impurity Decrease', 'Validation Accuracy', 'Testing Accuracy']
 print(df)
 print(f'Runtime {time.perf_counter() - start} seconds')
 
-compression_opts = dict(method='zip', archive_name=f'dtc_output_data_{test_num}.csv')
-df.to_csv(f'../output/dtc_output_data_{test_num}.zip', index=False, compression=compression_opts)
+compression_opts = dict(method='zip', archive_name=f'dtc_output_data.csv')
+df.to_csv(f'../output/dtc_output_data.zip', index=False, compression=compression_opts)
