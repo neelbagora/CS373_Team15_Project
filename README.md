@@ -14,7 +14,7 @@
 
 # C. Running Decision Tree Classifier Tester
 1. Run ***decision_tree_classifier_tester.py***
-2. Input value for B (Bootstraps)
+2. Input value for B (Number of Bootstraps)
 3. Input step value (value to increment from 0 to 2) _0.01 was used for our tests_
 4. Output is located in _Team15FinalProject/output_
 
