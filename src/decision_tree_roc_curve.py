@@ -1,5 +1,6 @@
 import pandas as pd
 import decision_tree_classifier
+from plotnine import ggplot
 
 X = pd.read_csv("../data/weather_data.csv")
 y = X['RainTomorrow']
@@ -18,7 +19,7 @@ best_specificity = 0
 best_sensitivity = 0
 
 # The range where the highest accuracy occurs
-for i in range(0, 10):
+for i in range(0, 100):
     i = i / 100
     validation_score, y_hat_testing, y_testing = decision_tree_classifier.run(X, y, i)
     true_positive = 0
