@@ -1,6 +1,6 @@
 import pandas as pd
 import decision_tree_classifier
-from plotnine import ggplot
+from plotnine import *
 
 X = pd.read_csv("../data/weather_data.csv")
 y = X['RainTomorrow']
