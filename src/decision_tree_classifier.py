@@ -2,7 +2,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder
 import pandas as pd
 import numpy as np
-from sklearn.metrics import accuracy_score
+import my_get_accuracy
 
 # Input:  Pandas Dataframe X
 #           dataframe containing the data to be used to form the decision
@@ -28,15 +28,15 @@ def run(X, y, impurity_decrease, np_seed=None):
 
     # training subset will utilize 60% of the data
     X_training = X.iloc[testing_indices[0 : 600]]
-    y_training = y.iloc[testing_indices[0 : 600]]
+    y_training = y.iloc[testing_indices[0 : 600]].tolist()
 
     # validation subset will utilize 20% of the remaining data
     X_validation = X.iloc[testing_indices[600 : 800]]
-    y_validation = y.iloc[testing_indices[600 : 800]]
+    y_validation = y.iloc[testing_indices[600 : 800]].tolist()
 
     # testing subset will utilize the remaining 20% of data
     X_testing = X.iloc[testing_indices[800 : 1000]]
-    y_testing = y.iloc[testing_indices[800:]]
+    y_testing = y.iloc[testing_indices[800:]].tolist()
     # print(testing_data)
 
     clf = DecisionTreeClassifier(min_impurity_decrease=impurity_decrease)
@@ -44,4 +44,7 @@ def run(X, y, impurity_decrease, np_seed=None):
     clf = clf.fit(X_training, y_training)
     clf_testing_predict = clf.predict(X_testing)
 
-    return (accuracy_score(clf.predict(X_validation), y_validation), clf_testing_predict, y_testing)
+    clf_validation_predict = clf.predict(X_validation)
+    validation_accuracy_score = my_get_accuracy.run(clf_validation_predict, y_validation, True)
+
+    return (validation_accuracy_score, clf_testing_predict, y_testing)
