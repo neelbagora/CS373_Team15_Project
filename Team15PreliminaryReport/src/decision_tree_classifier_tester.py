@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder
 import decision_tree_classifier
-from sklearn.metrics import accuracy_score
+import my_get_accuracy
 import time
 import sys
 
@@ -38,7 +38,7 @@ for i in range(len(inputs)):
     # specified hyperparameter
     for j in range(n_tests):
         validation_accuracy_score, y_hat_testing, y_testing = decision_tree_classifier.run(X, y, inputs[i])
-        testing_accuracy_score += accuracy_score(y_hat_testing, y_testing)
+        testing_accuracy_score += my_get_accuracy.run(y_hat_testing, y_testing)
 
     validation_outputs.append(validation_accuracy_score / n_tests)
     testing_outputs.append(testing_accuracy_score / n_tests)
