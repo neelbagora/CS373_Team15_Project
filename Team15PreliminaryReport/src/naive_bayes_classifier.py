@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 from sklearn.naive_bayes import BernoulliNB
-from sklearn.metrics import accuracy_score
 
 def run(X, y , alph, np_seed=None):
   if np_seed:

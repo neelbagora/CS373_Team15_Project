@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.naive_bayes import BernoulliNB
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+import my_get_accuracy
 
 def run(X, y , alph, np_seed=None):
   if np_seed:
@@ -55,7 +55,7 @@ clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 
 # Accuracy Output
-accuracy = accuracy_score(y_test, y_pred)
+accuracy = my_get_accuracy.run(y_test, y_pred)
 print('Test Accuracy : %.4f' % clf.score(X_test, y_test))
 print('Training Accuracy : %.3f' % clf.score(X_train, y_train))
 
@@ -86,7 +86,7 @@ clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 
 
-accuracy = accuracy_score(y_test, y_pred)
+accuracy = my_get_accuracy.run(y_test, y_pred)
 
 print('Test Accuracy : %.4f' % clf.score(X_test, y_test))
 print('Training Accuracy : %.3f' % clf.score(X_train, y_train))
