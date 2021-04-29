@@ -31,8 +31,7 @@ def run(X, y , alph, np_seed=None):
 
   return y_pred, clf.score(X_testing, y_testing), clf.score(X_validation, y_validation)
 
-
-
+'''
 df = pd.read_csv("../data/weather_data.csv", sep=',')
 # df = pd.read_csv('')
 
@@ -90,3 +89,4 @@ accuracy = my_get_accuracy.run(y_test, y_pred)
 
 print('Test Accuracy : %.4f' % clf.score(X_test, y_test))
 print('Training Accuracy : %.3f' % clf.score(X_train, y_train))
+'''
