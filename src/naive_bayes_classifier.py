@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.naive_bayes import BernoulliNB
-from sklearn.model_selection import train_test_split
 import my_get_accuracy
 
 def run(X, y , alph, np_seed=None):
