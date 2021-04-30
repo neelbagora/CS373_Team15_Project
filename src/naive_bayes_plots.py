@@ -24,9 +24,9 @@ def get_accuracy_graph():
       temp_test = 0
       temp_trains = 0
       for i in range(10):
-          y_pred, test_score, train_score = naive_bayes_classifier.run(X, y, alph=alpha)
+          test_score, y_hat_testing, y_testing = naive_bayes_classifier.run(X, y, alph=alpha)
           temp_test += test_score
-          temp_trains += train_score
+          temp_trains += my_get_accuracy.run(y_hat_testing, y_testing, True)
       y_scores.append(temp_test / 10)
       y_trains.append(temp_trains / 10)
   ###

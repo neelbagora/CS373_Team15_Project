@@ -16,6 +16,7 @@ train_outputs = []
 num_test = int(input("Enter number of tests per Hyperparameter: "))
 step = float(input("Enter step value: "))
 
+# *step of 0.01 used in experiments conducted*
 print(f'Hyperparameter Range being Run: ({0.01}, {0.5}), step={step}.')
 
 # test
