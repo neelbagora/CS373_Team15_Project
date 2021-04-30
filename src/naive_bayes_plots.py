@@ -3,6 +3,7 @@ import numpy as np
 import naive_bayes_classifier
 import my_get_accuracy
 from plotnine import *
+from sklearn.naive_bayes import BernoulliNB
 
 
 # BernoulliNB classifier function for plots. 
@@ -64,7 +65,7 @@ def get_accuracy_graph():
                 + geom_line(aes(x='alphas', y='test_score'), color='red') \
                 + labs(y='Accuracy', x='Parameter Value') \
                 + ggtitle('Accuracy vs Alpha') 
-  print(p)
+  return p
 
 def get_roc_curve():
   df = pd.read_csv('../data/weather_data.csv')
@@ -126,3 +127,10 @@ def get_roc_curve():
   df = pd.DataFrame(list(zip(specificity_list, sensitivity_list)), columns =['Specificity', 'Sensitivity'])
 
   return ggplot(df) + geom_line(aes(x='Specificity', y="Sensitivity"), color='red') + xlim(0, 1) + ylim(0, 1) + geom_abline(slope=-1, intercept=1, linetype='dotted') + ggtitle("ROC Curve of Naive Bayes Classifier")
+
+testnum = int(input('Input 0 for the Accuracy Curve:\nInput 1 for the ROC Curve'))
+
+if testnum == 0:
+    print(get_accuracy_graph())
+else:
+    print(get_roc_curve())
