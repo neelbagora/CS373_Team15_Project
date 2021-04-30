@@ -56,4 +56,4 @@ specificity_list.append(1)
 # plot results
 df = pd.DataFrame(list(zip(specificity_list, sensitivity_list)), columns =['Specificity', 'Sensitivity'])
 
-ggplot(df) + geom_line(aes(x='Specificity', y="Sensitivity"), color='red') + xlim(0, 1) + ylim(0, 1) + geom_abline(slope=-1, intercept=1) + ggtitle("ROC Curve of Decision Tree Classifier")
+print(ggplot(df) + geom_line(aes(x='Specificity', y="Sensitivity"), color='red') + xlim(0, 1) + ylim(0, 1) + geom_abline(slope=-1, intercept=1) + ggtitle("ROC Curve of Decision Tree Classifier"))

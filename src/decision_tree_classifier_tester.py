@@ -36,6 +36,7 @@ for i in range(len(inputs)):
         validation_accuracy_score = validation_accuracy_score + validation_score
 
         accuracy_score = my_get_accuracy.run(y_hat_testing, y_testing, True)
+        accuracy_score = accuracy_score / len(y_hat_testing)
         testing_accuracy_score += accuracy_score
 
     validation_outputs.append(validation_accuracy_score / n_tests)
