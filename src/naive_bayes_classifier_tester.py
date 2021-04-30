@@ -1,6 +1,7 @@
 import naive_bayes_classifier
 import pandas as pd
 import numpy as np
+import my_get_accuracy
 
 df = pd.read_csv('../data/weather_data.csv')
 
@@ -15,19 +16,19 @@ train_outputs = []
 num_test = int(input("Enter number of tests per Hyperparameter: "))
 step = float(input("Enter step value: "))
 
-print(f'Hyperparameter Range being Run: ({0}, {0.5}), step={step}.')
+print(f'Hyperparameter Range being Run: ({0.01}, {0.5}), step={step}.')
 
 # test
-alphas = np.arange(0, 0.5, step)
+alphas = np.arange(0.01, 0.5, step)
 
 # Testing for alpha
 for alpha in alphas:
     test_avg = 0
     train_avg = 0
     for i in range(num_test):
-        y_pred, test_score, train_score = naive_bayes_classifier.run(X, y, alph=alpha)
+        test_score, y_hat_testing, y_testing = naive_bayes_classifier.run(X, y, alph=alpha)
         test_avg += test_score
-        train_avg += train_score
+        train_avg += my_get_accuracy.run(y_hat_testing, y_testing, True)
     test_avg = test_avg / num_test
     train_avg = train_avg / num_test
     testing_outputs.append(test_avg)

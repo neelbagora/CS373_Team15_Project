@@ -5,34 +5,6 @@ import my_get_accuracy
 from plotnine import *
 from sklearn.naive_bayes import BernoulliNB
 
-
-# BernoulliNB classifier function for plots. 
-def brun(X, y , alph, np_seed=None):
-    if np_seed:
-        np.random.seed(np_seed)
-
-  # Randomly split up the dataset for training, validation and testing
-  # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.6, train_size=0.2)
-    testing_indices = list(np.random.choice(len(X), len(X), replace=False))
-
-    X_training = X.iloc[testing_indices[0:600]]
-    y_training = y.iloc[testing_indices[0:600]]
-
-    X_validation = X.iloc[testing_indices[600:800]]
-    y_validation = y.iloc[testing_indices[600:800]]
-
-    X_testing = X.iloc[testing_indices[800:1000]]
-    y_testing = y.iloc[testing_indices[800:1000]]
-
-  #y_test = y_test.to_numpy()
-
-  # Training
-    clf = BernoulliNB(alpha=alph)
-    clf.fit(X_training, y_training)
-    y_pred = clf.predict(X_testing)
-
-    return y_pred, y_testing, y_training
-
 def get_accuracy_graph():
   df = pd.read_csv('../data/weather_data.csv')
   # Split up X and y
@@ -64,7 +36,7 @@ def get_accuracy_graph():
   p = ggplot(test_df) + geom_line(aes(x='alphas', y='train_score'), color='blue') \
                 + geom_line(aes(x='alphas', y='test_score'), color='red') \
                 + labs(y='Accuracy', x='Parameter Value') \
-                + ggtitle('Accuracy vs Alpha') 
+                + ggtitle('Accuracy vs Alpha')
   return p
 
 def get_roc_curve():
@@ -85,8 +57,7 @@ def get_roc_curve():
 
   # testing -> actula values
   # yhat -> pred
-  y_hat_testing, y_testing,y_training =  brun(X, y, alph=0.6)
-  y_testing = y_testing.to_numpy()
+  validation_accuracy_score, y_hat_testing, y_testing = naive_bayes_classifier.run(X, y, alph=0.6)
 
 
   true_positive = 0
@@ -112,7 +83,7 @@ def get_roc_curve():
           # y = 0 (True Negative)
           else:
               true_negative = true_negative + 1
-              
+
   # calculate sensitivity and specificity
   sensitivity = true_positive / (true_positive + false_negative)
   specificity = true_negative / (true_negative + false_positive)
@@ -122,13 +93,13 @@ def get_roc_curve():
 
   sensitivity_list.append(0)
   specificity_list.append(1)
-  
+
   # plot results
   df = pd.DataFrame(list(zip(specificity_list, sensitivity_list)), columns =['Specificity', 'Sensitivity'])
 
   return ggplot(df) + geom_line(aes(x='Specificity', y="Sensitivity"), color='red') + xlim(0, 1) + ylim(0, 1) + geom_abline(slope=-1, intercept=1, linetype='dotted') + ggtitle("ROC Curve of Naive Bayes Classifier")
 
-testnum = int(input('Input 0 for the Accuracy Curve:\nInput 1 for the ROC Curve'))
+testnum = int(input('Input 0 for the Accuracy Curve, Input 1 for the ROC Curve: '))
 
 if testnum == 0:
     print(get_accuracy_graph())

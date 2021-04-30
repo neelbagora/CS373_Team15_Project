@@ -13,13 +13,13 @@ def run(X, y , alph, np_seed=None):
   testing_indices = list(np.random.choice(len(X), len(X), replace=False))
 
   X_training = X.iloc[testing_indices[0:600]]
-  y_training = y.iloc[testing_indices[0:600]]
+  y_training = y.iloc[testing_indices[0:600]].tolist()
 
   X_validation = X.iloc[testing_indices[600:800]]
-  y_validation = y.iloc[testing_indices[600:800]]
+  y_validation = y.iloc[testing_indices[600:800]].tolist()
 
   X_testing = X.iloc[testing_indices[800:1000]]
-  y_testing = y.iloc[testing_indices[800:1000]]
+  y_testing = y.iloc[testing_indices[800:1000]].tolist()
 
   #y_test = y_test.to_numpy()
 
@@ -28,4 +28,7 @@ def run(X, y , alph, np_seed=None):
   clf.fit(X_training, y_training)
   y_pred = clf.predict(X_testing)
 
-  return y_pred, clf.score(X_testing, y_testing), clf.score(X_validation, y_validation)
+  y_hat_validation = clf.predict(X_validation)
+  y_hat_testing = clf.predict(X_testing)
+
+  return my_get_accuracy.run(y_hat_validation, y_validation, True), y_hat_testing, y_testing
