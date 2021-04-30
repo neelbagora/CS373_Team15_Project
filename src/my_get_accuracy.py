@@ -10,3 +10,4 @@ def run(X, y, normalize):
         return 1.0 * match / total
 
     return match
+
