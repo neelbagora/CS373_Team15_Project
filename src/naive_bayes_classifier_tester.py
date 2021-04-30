@@ -34,7 +34,7 @@ for alpha in alphas:
     train_outputs.append(train_avg)
 
 # to df
-df = pd.DataFrame(list(zip(alphas, train_outputs, testing_outputs)))
+df = pd.DataFrame(list(zip(alphas, train_outputs, testing_outputs)), columns=['Alpha', 'Train Score', 'Testing Score'])
 print(df)
 compression_opts = dict(method='zip', archive_name=f'bayes_output_data.csv')
 df.to_csv(f'../output/bayes_output_data.zip', index=False, compression=compression_opts)
