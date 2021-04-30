@@ -21,8 +21,6 @@ def run(X, y , alph, np_seed=None):
   X_testing = X.iloc[testing_indices[800:1000]]
   y_testing = y.iloc[testing_indices[800:1000]].tolist()
 
-  #y_test = y_test.to_numpy()
-
   # Training
   clf = BernoulliNB(alpha=alph)
   clf.fit(X_training, y_training)

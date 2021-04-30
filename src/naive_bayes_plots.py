@@ -36,7 +36,7 @@ def get_accuracy_graph():
   p = ggplot(test_df) + geom_line(aes(x='alphas', y='train_score'), color='blue') \
                 + geom_line(aes(x='alphas', y='test_score'), color='red') \
                 + labs(y='Accuracy', x='Parameter Value') \
-                + ggtitle('Accuracy vs Alpha')
+                + ggtitle('Alpha vs. Accuracy')
   return p
 
 def get_roc_curve():
@@ -65,31 +65,35 @@ def get_roc_curve():
   false_positive = 0
   false_negative = 0
 
+  n_tests = 35
+  specificity = 0
+  sensitivity = 0
+  for i in range(n_tests):
   # for training
-  for x in range(len(y_hat_testing)):
-      # y-hat = 1
-      if (y_hat_testing[x] == 1):
-          # y = 1 (True Positive)
-          if (y_testing[x] == 1):
-              true_positive = true_positive + 1
-          # y = 0 (False Positive)
+      for x in range(len(y_hat_testing)):
+          # y-hat = 1
+          if (y_hat_testing[x] == 1):
+              # y = 1 (True Positive)
+              if (y_testing[x] == 1):
+                  true_positive = true_positive + 1
+              # y = 0 (False Positive)
+              else:
+                  false_positive = false_positive + 1
+          # y-hat = 0
           else:
-              false_positive = false_positive + 1
-      # y-hat = 0
-      else:
-          # y = 1 (False Negative)
-          if (y_testing[x] == 1):
-              false_negative = false_negative + 1
-          # y = 0 (True Negative)
-          else:
-              true_negative = true_negative + 1
+              # y = 1 (False Negative)
+              if (y_testing[x] == 1):
+                  false_negative = false_negative + 1
+              # y = 0 (True Negative)
+              else:
+                  true_negative = true_negative + 1
 
-  # calculate sensitivity and specificity
-  sensitivity = true_positive / (true_positive + false_negative)
-  specificity = true_negative / (true_negative + false_positive)
+      # calculate sensitivity and specificity
+      sensitivity = sensitivity + (true_positive / (true_positive + false_negative))
+      specificity = specificity + (true_negative / (true_negative + false_positive))
 
-  sensitivity_list.append(sensitivity)
-  specificity_list.append(specificity)
+  sensitivity_list.append(sensitivity / n_tests)
+  specificity_list.append(specificity / n_tests)
 
   sensitivity_list.append(0)
   specificity_list.append(1)

@@ -16,39 +16,44 @@ sensitivity_list.append(1)
 specificity_list.append(0)
 
 # The range where the highest accuracy occurs
+sensitivity = 0
+specificity = 0
+
+n_iterations = 35
 
 # min_impurity_decrease of 0.02 is our optimal value
-validation_score, y_hat_testing, y_testing = decision_tree_classifier.run(X, y, 0.02)
-true_positive = 0
-true_negative = 0
-false_positive = 0
-false_negative = 0
+for i in range(n_iterations):
+    validation_score, y_hat_testing, y_testing = decision_tree_classifier.run(X, y, 0.02)
+    true_positive = 0
+    true_negative = 0
+    false_positive = 0
+    false_negative = 0
 
-# calculate tp, tn, fp, fn
-for x in range(len(y_hat_testing)):
-    # y-hat = 1
-    if (y_hat_testing[x] == 1):
-        # y = 1 (True Positive)
-        if (y_testing[x] == 1):
-            true_positive = true_positive + 1
-        # y = 0 (False Positive)
+    # calculate tp, tn, fp, fn
+    for x in range(len(y_hat_testing)):
+        # y-hat = 1
+        if (y_hat_testing[x] == 1):
+            # y = 1 (True Positive)
+            if (y_testing[x] == 1):
+                true_positive = true_positive + 1
+            # y = 0 (False Positive)
+            else:
+                false_positive = false_positive + 1
+        # y-hat = 0
         else:
-            false_positive = false_positive + 1
-    # y-hat = 0
-    else:
-        # y = 1 (False Negative)
-        if (y_testing[x] == 1):
-            false_negative = false_negative + 1
-        # y = 0 (True Negative)
-        else:
-            true_negative = true_negative + 1
+            # y = 1 (False Negative)
+            if (y_testing[x] == 1):
+                false_negative = false_negative + 1
+            # y = 0 (True Negative)
+            else:
+                true_negative = true_negative + 1
 
-# calculate sensitivity and specificity
-sensitivity = true_positive / (true_positive + false_negative)
-specificity = true_negative / (true_negative + false_positive)
+    # calculate sensitivity and specificity
+    sensitivity = sensitivity + (true_positive / (true_positive + false_negative))
+    specificity = specificity + (true_negative / (true_negative + false_positive))
 
-sensitivity_list.append(sensitivity)
-specificity_list.append(specificity)
+sensitivity_list.append(sensitivity / n_iterations)
+specificity_list.append(specificity / n_iterations)
 
 sensitivity_list.append(0)
 specificity_list.append(1)
