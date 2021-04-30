@@ -18,7 +18,7 @@ step = float(input("Enter step value: "))
 print(f'Hyperparameter Range being Run: ({0}, {0.5}), step={step}.')
 
 # test
-alphas = np.arange((0, 0.5, step)
+alphas = np.arange(0, 0.5, step)
 
 # Testing for alpha
 for alpha in alphas:
