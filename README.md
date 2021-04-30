@@ -25,3 +25,12 @@
 1. Ensure that ***dtc_output_data.zip*** or ***dtc_output_data.csv*** is in _Team15FinalProject/output_
 2. If zip does not exist, refer to **C**. If zip exists, ensure ***dtc_output_data.csv*** is extracted from the file.
 3. Run ***decision_tree_accuracy_plot.py***
+
+# F. Running Naive Bayes Classifier Tester
+1. run ***naive_bayes_classifier_tester.py*** 
+2. Input value for number of tests to conduct
+3. Input value for number of tests for hyperparameter.
+4. Input step value (increment value)
+
+# G. Getting plots from the Naive Bayes Classifier
+1. Input 0 for the Accuracy Curve and 1 for the ROC Curve. 
