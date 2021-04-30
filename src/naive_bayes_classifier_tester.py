@@ -12,14 +12,13 @@ X = df.drop(columns=['RainTomorrow']) # Get rid of prediction
 testing_outputs = []
 train_outputs = []
 
-alphas = int(input("Enter test number: "))
 num_test = int(input("Enter number of tests per Hyperparameter: "))
 step = float(input("Enter step value: "))
 
-print(f'Hyperparameter Range being Run: ({(alphas * 0.1) - 0.1}, {alphas * 0.1}), step={step}.')
+print(f'Hyperparameter Range being Run: ({0}, {0.5}), step={step}.')
 
 # test
-alphas = np.arange((0.1 * alphas) - 0.1, (alphas * 0.1), step)
+alphas = np.arange((0, 0.5, step)
 
 # Testing for alpha
 for alpha in alphas:
